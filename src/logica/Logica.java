@@ -1,9 +1,8 @@
 package logica;
 
-import javax.swing.ImageIcon;
 
-import graficos.CasillaJugada;
-import graficos.CasillaSolucion;
+import graficos.casillas.CasillaJugada;
+import graficos.casillas.CasillaSolucion;
 
 public class Logica {
 
@@ -13,20 +12,20 @@ public class Logica {
 	 * primer valor será el de dentro y el segundo el de fuera.
 	 * 
 	 * @param jugadas las casillas que han sido respondidas
-	 * @param soluciones las SOluciones preestablecidas
-	 * @return int[] aciertos
+	 * @param soluciones las Soluciones preestablecidas
+	 * @return int[] aciertos Posición 0 en su sitio, posición 1 fuera de sitio. 
 	 */
 	public static int[] valorAciertos(CasillaJugada[] jugadas, CasillaSolucion[] soluciones) {
 		int[] aciertos = new int[2];
 		int sitio = 0;
 		int fuera = 0;
-		ImageIcon jugada;
-		ImageIcon solucion;
+		int jugada;
+		int solucion;
 		for (int i = 0; i < jugadas.length; i++) {
-			jugada = jugadas[i].getColor();
-			solucion = soluciones[i].getColor();
+			jugada = jugadas[i].getNumColor();
+			solucion = soluciones[i].getNumColor();
 
-			if (jugada.equals(solucion)) {
+			if (jugada==solucion){
 				sitio += 1;
 				soluciones[i].setComprobada(true);
 				jugadas[i].setAcertada(true);
@@ -35,12 +34,12 @@ public class Logica {
 		}
 
 		for (int i = 0; i < jugadas.length; i++) {
-			jugada = jugadas[i].getColor();
+			jugada = jugadas[i].getNumColor();
 			boolean comprobada = false;
 			if (!jugadas[i].isAcertada()) {
 				for (int j = 0; j < soluciones.length && !comprobada; j++) {
-					solucion = soluciones[j].getColor();
-					if (jugada.equals(solucion) && !soluciones[j].isComprobada()) {
+					solucion = soluciones[j].getNumColor();
+					if (jugada==solucion && !soluciones[j].isComprobada()) {
 						fuera += 1;
 						soluciones[j].setComprobada(true);
 						comprobada = true;
@@ -56,7 +55,7 @@ public class Logica {
 	}
 
 	/**
-	 * Reiniciar el atributo de comprobación de las casillas a falsr
+	 * Reiniciar el atributo de comprobación de las casillas a false
 	 * 
 	 * @param soluciones CasillaSolucion[]
 	 */

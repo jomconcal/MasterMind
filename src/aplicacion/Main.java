@@ -1,7 +1,8 @@
 package aplicacion;
 
 import java.awt.EventQueue;
-import graficos.Tablero;
+
+import graficos.casilleros.Tablero;
 
 public class Main {
 
@@ -13,8 +14,8 @@ public class Main {
 			@Override
 			public void run() {
 				Tablero t = new Tablero(10,4);
+				t.iniciarPanelAcciones();
 				t.setVisible(true);
-				
 				
 			}
 		});
