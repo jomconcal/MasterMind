@@ -10,7 +10,7 @@ import javax.swing.JPanel;
  * @version 2
  * @since 25/05/2024
  */
-public class PanelAcciones extends JPanel {
+public class PanelReiniciar extends JPanel {
 
 	/**
 	 * 
@@ -29,9 +29,7 @@ public class PanelAcciones extends JPanel {
 	 * @param solucionario
 	 * @param pistas
 	 */
-	public PanelAcciones() {
-		setFocusable(true);
-		requestFocus();
+	public PanelReiniciar() {
 		reiniciar = new JButton("Reiniciar");
 		this.add(reiniciar);
 	}

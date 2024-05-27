@@ -40,7 +40,7 @@ public class Tablero extends JFrame {
 	/**
 	 * Panel encargado de recibir las acciones que realizará el jugador.
 	 */
-	private PanelAcciones panelAcciones;
+	private PanelReiniciar panelReiniciar;
 
 	/**
 	 * Filas que tiene el tablero
@@ -59,6 +59,8 @@ public class Tablero extends JFrame {
 	 * @param columnas
 	 */
 	public Tablero(int filas, int columnas) {
+		this.setFocusable(true);
+		this.requestFocus();
 		setTitle("Master Mind");
 		setLayout(new BorderLayout());
 		setResizable(false);
@@ -80,12 +82,17 @@ public class Tablero extends JFrame {
 		casillero = new Casillero(filas, columnas);
 		solucionario = new Solucionario(columnas);
 		pistas = new Pistas(filas);
+		panelReiniciar = new PanelReiniciar();
+
 		this.filas = filas;
 		this.columnas = columnas;
 
 		this.add(casillero, BorderLayout.CENTER);
 		this.add(solucionario, BorderLayout.NORTH);
 		this.add(pistas, BorderLayout.EAST);
+		this.add(panelReiniciar, BorderLayout.SOUTH);
+
+		this.pack();
 
 	}
 
@@ -94,12 +101,8 @@ public class Tablero extends JFrame {
 	 * nulo. Ya que necesita Tablero como parámetro.
 	 */
 	public void iniciarPanelAcciones() {
-		panelAcciones = new PanelAcciones();
-		panelAcciones.addKeyListener(new AccionFlechas(this));
-		panelAcciones.getBoton().addActionListener(new AccionReiniciar(this));
-		this.add(panelAcciones, BorderLayout.SOUTH);
-		this.pack();
-
+		this.addKeyListener(new AccionFlechas(this));
+		panelReiniciar.getBoton().addActionListener(new AccionReiniciar(this));
 	}
 
 	public Casillero getCasillero() {
@@ -114,8 +117,8 @@ public class Tablero extends JFrame {
 		return pistas;
 	}
 
-	public PanelAcciones getPanelAcciones() {
-		return panelAcciones;
+	public PanelReiniciar getPanelAcciones() {
+		return panelReiniciar;
 	}
 
 	public void reiniciar() {
@@ -124,14 +127,14 @@ public class Tablero extends JFrame {
 		this.remove(casillero);
 		this.remove(solucionario);
 		this.remove(pistas);
-		this.remove(panelAcciones);
+		this.remove(panelReiniciar);
 		
 		iniciarTablero(filas, columnas);
 		iniciarPanelAcciones();
 		
 		//Si no no se actualizan los listeners.
-		this.setVisible(false);
-		this.setVisible(true);
+//		this.setVisible(false);
+//		this.setVisible(true);
 		
 	}
 

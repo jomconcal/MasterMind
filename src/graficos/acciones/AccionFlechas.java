@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 
 import graficos.casilleros.Casillero;
 import graficos.casilleros.Pistas;
-import graficos.casilleros.PanelAcciones;
 import graficos.casilleros.Solucionario;
 import graficos.casilleros.Tablero;
 import logica.Logica;
@@ -19,6 +18,11 @@ import logica.Logica;
  * @since 25/05/2024
  */
 public class AccionFlechas extends KeyAdapter {
+	
+	/**
+	 * Tablero sobre el que recae la acción
+	 */
+	private Tablero tablero;
 
 	/**
 	 * Casillero sobre el que realizar las acciones.
@@ -34,11 +38,6 @@ public class AccionFlechas extends KeyAdapter {
 	 * Soluciones al acertijo.
 	 */
 	private Solucionario solucionario;
-
-	/**
-	 * Panel que recibe las acciones
-	 */
-	private PanelAcciones acciones;
 
 	/**
 	 * Fila de la casilla que recibe la acción.
@@ -57,10 +56,10 @@ public class AccionFlechas extends KeyAdapter {
 	 * @param casillero
 	 */
 	public AccionFlechas(Tablero tablero) {
+		this.tablero=tablero;
 		this.pistas = tablero.getPistas();
 		this.casillero = tablero.getCasillero();
 		this.solucionario = tablero.getSolucionario();
-		this.acciones = tablero.getPanelAcciones();
 		this.fila = casillero.getFilaActual();
 		this.columna = casillero.getColumnaActual();
 	}
@@ -106,11 +105,11 @@ public class AccionFlechas extends KeyAdapter {
 			if (aciertos[0] == 4) {
 				casillero.setFinJuego(true);
 				solucionario.mostrarResultado(true);
-				acciones.removeKeyListener(this);
+				tablero.removeKeyListener(this);
 			} else {
 				casillero.avanzarFila();
 				if (casillero.isFinJuego()) {
-					acciones.removeKeyListener(this);
+					tablero.removeKeyListener(this);
 					solucionario.mostrarResultado(false);
 				}
 			}
